@@ -1,7 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
 var bodyParser = require('body-parser');
@@ -25,7 +24,6 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser()); // todo: configure this
 
 // Configure session
 var sessionConfig = {
@@ -49,12 +47,6 @@ app.use(csrf());
 app.use(passport.authenticate('session'));
 app.use(serveStatic(path.join(__dirname, '..', 'public')));
 app.use(function (req, res, next) {
-  var msgs = req.session.messages || [];
-  res.locals.messages = msgs;
-  req.session.messages = [];
-  next();
-});
-app.use(function (req, res, next) {
   res.locals.csrfToken = req.csrfToken();
   res.locals.path = req.path;
 
@@ -62,6 +54,13 @@ app.use(function (req, res, next) {
     ? (res.locals.user = req.user)
     : (res.locals.user = null);
 
+  next();
+});
+app.use(function (req, res, next) {
+  var msgs = req.session.messages || [];
+  res.locals.messages = msgs;
+  res.locals.hasMessages = !!msgs.length;
+  req.session.messages = [];
   next();
 });
 
@@ -73,11 +72,15 @@ passport.use(
       var user = await db.User.findOne({ where: { email: username } });
 
       if (!user) {
-        return done(null, false);
+        return done(null, false, {
+          message: 'Incorrect username or password.',
+        });
       }
 
       if (user.password != password) {
-        return done(null, false);
+        return done(null, false, {
+          message: 'Incorrect username or password.',
+        });
       }
 
       return done(null, user);

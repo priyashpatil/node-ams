@@ -20,3 +20,14 @@
 <body>
 
     <%- include('navbar'); -%>
+
+
+    <% if (hasMessages) { %>
+        <div class="container my-3">
+            <% messages.forEach(function(message) { %>
+                <div class="alert alert-success">
+                    <%= message %>
+                </div>
+                <% }); %>
+        </div>
+    <% } %>

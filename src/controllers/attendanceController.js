@@ -16,5 +16,8 @@ exports.attendanceStore = async function (req, res, next) {
     punchedAt: new Date(),
   });
 
-  res.redirect('/');
+  req.session.messages = ['Added'];
+  req.session.save(function (err) {
+    res.redirect('/');
+  });
 };
