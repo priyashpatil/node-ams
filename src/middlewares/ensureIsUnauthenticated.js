@@ -1,6 +1,6 @@
 module.exports = function ensureIsUnauthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    res.redirect("/");
+    res.redirect('/');
   } else {
     next();
   }

@@ -1,21 +1,52 @@
-"use strict";
+'use strict';
+
+var {
+  randEmail,
+  randBoolean,
+  randFullName,
+  randBetweenDate,
+} = require('@ngneat/falso');
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert("users", [
+    var users = [
       {
-        name: "John Doe",
-        email: "john@email.com",
-        password: "password",
-        isAdmin: false,
-        joined: new Date(),
+        name: 'John Doe',
+        email: 'j@e.com',
+        password: 'password',
+        isAdmin: true,
+        isActive: true,
+        joinedAt: new Date(),
         updatedAt: new Date(),
         createdAt: new Date(),
       },
-    ]);
+    ];
+
+    for (var i = 0; i < 20; i++) {
+      users.push({
+        name: randFullName(),
+        email: randEmail(),
+        password: 'password',
+        isAdmin: randBoolean(),
+        isActive: randBoolean(),
+        joinedAt: randBetweenDate({
+          from: new Date('10/07/2020'),
+          to: new Date(),
+        }),
+        updatedAt: randBetweenDate({
+          from: new Date('10/07/2020'),
+          to: new Date(),
+        }),
+        createdAt: randBetweenDate({
+          from: new Date('10/07/2020'),
+          to: new Date(),
+        }),
+      });
+    }
+    await queryInterface.bulkInsert('users', users);
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("users", null, {});
+    await queryInterface.bulkDelete('users', null, {});
   },
 };

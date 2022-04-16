@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("users", {
+    await queryInterface.createTable('users', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -20,13 +20,17 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      joined: {
+      joinedAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
       isAdmin: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
+      },
+      isActive: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
       },
       createdAt: {
         allowNull: false,
@@ -38,13 +42,13 @@ module.exports = {
       },
     });
 
-    await queryInterface.addConstraint("users", {
-      fields: ["email"],
-      type: "unique",
+    await queryInterface.addConstraint('users', {
+      fields: ['email'],
+      type: 'unique',
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("users");
+    await queryInterface.dropTable('users');
   },
 };

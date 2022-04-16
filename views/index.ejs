@@ -1,16 +1,32 @@
 <%- include('includes/header'); -%>
   <div class="container">
-    <h1>
-      Hello <%= user.name %>
-    </h1>
 
-    <p>Welcome to <%= appName %>
-    </p>
+    <div class="row border-bottom">
+      <div class="col-md-6 my-4">
+        <h2 class="m-0 fw-light">
+          Hello <%= user.name %>
+        </h2>
 
-    <form action="/logout" method="post">
-      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-      <button class="btn btn-primary">Logout</button>
-    </form>
+        <p class="m-0">Welcome to <%= appName %>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <div class="row my-4">
+          <div class="col-4">
+            <div class="fs-4">16 April</div>
+            <div>10:07 AM</div>
+          </div>
+          <div class="col-4">
+            <div class="fw-bold">Punch In</div>
+            <button class="btn btn-primary">Punch In</button>
+          </div>
+          <div class="col-4">
+            <div class="fw-bold">Punch Out</div>
+            <button class="btn btn-primary">Punch Out</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
