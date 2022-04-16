@@ -49,6 +49,12 @@ app.use(csrf());
 app.use(passport.authenticate('session'));
 app.use(serveStatic(path.join(__dirname, '..', 'public')));
 app.use(function (req, res, next) {
+  var msgs = req.session.messages || [];
+  res.locals.messages = msgs;
+  req.session.messages = [];
+  next();
+});
+app.use(function (req, res, next) {
   res.locals.csrfToken = req.csrfToken();
   res.locals.path = req.path;
 
