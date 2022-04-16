@@ -15,7 +15,6 @@ var LocalStrategy = require('passport-local');
 
 var authRouter = require('./routes/auth');
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 
 var app = express();
@@ -33,11 +32,11 @@ var sessionConfig = {
   secret: 'keyboard_cat',
   resave: true,
   saveUninitialized: true,
-  // store: new SequelizeStore({
-  //   db: db.sequelize,
-  //   modelKey: 'Session',
-  //   tableName: 'sessions',
-  // }),
+  store: new SequelizeStore({
+    db: db.sequelize,
+    modelKey: 'Session',
+    tableName: 'sessions',
+  }),
 };
 
 if (app.get('env') === 'production') {
@@ -51,6 +50,7 @@ app.use(passport.authenticate('session'));
 app.use(serveStatic(path.join(__dirname, '..', 'public')));
 app.use(function (req, res, next) {
   res.locals.csrfToken = req.csrfToken();
+  res.locals.path = req.path;
 
   req.isAuthenticated()
     ? (res.locals.user = req.user)
@@ -102,7 +102,6 @@ passport.deserializeUser(function (user, done) {
 // Configure routes
 app.use('/', authRouter);
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
