@@ -11,7 +11,11 @@ exports.handle_login = async function (req, res) {
   if (user) {
     req.session.auth = JSON.stringify(user);
     req.session.save(function (err) {
-      res.redirect('/');
+      if (user.isAdmin) {
+        res.redirect('/admin');
+      } else {
+        res.redirect('/');
+      }
     });
   } else {
     req.session.messages = ['Username or Password is wrong'];

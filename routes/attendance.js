@@ -5,9 +5,9 @@ const {
 } = require('../controllers/attendanceController');
 var router = express.Router();
 const ensureIsAuthenticated = require('../middlewares/ensureIsAuthenticated');
+const ensureIsEmployee = require('../middlewares/ensureIsEmployee');
 
-/* GET home page. */
-router.get('/', ensureIsAuthenticated, attendanceIndex);
-router.post('/', ensureIsAuthenticated, attendanceStore);
+router.get('/', ensureIsAuthenticated, ensureIsEmployee, attendanceIndex);
+router.post('/', ensureIsAuthenticated, ensureIsEmployee, attendanceStore);
 
 module.exports = router;
