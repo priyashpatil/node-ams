@@ -1,5 +1,5 @@
 var models = require('../models');
-var { sendMail } = require('../services/email');
+var emailService = require('../services/emailService');
 var createError = require('http-errors');
 
 exports.employeesIndex = async function (req, res, next) {
@@ -36,13 +36,13 @@ exports.employeesStore = async function (req, res, next) {
     password: 'password',
     joinedAt: data.joinedAt,
   });
-
-  await sendMail(
-    '"Fred Foo 👻" <foo@example.com>',
-    employee.email,
-    'Welcome to Express AMS',
-    '<b>Hello world</b>',
-  );
+  
+  await emailService.sendMail({
+    from: '"Fred Foo 👻" <foo@example.com>',
+    to: employee.email,
+    subject: 'Welcome to Express AMS',
+    html: '<b>Hello world</b>',
+  });
 
   req.session.messages = [`Employee ${employee.name} Added Successfully.`];
   req.session.save(function (err) {
