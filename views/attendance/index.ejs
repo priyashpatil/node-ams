@@ -1,7 +1,7 @@
 <%- include('../includes/header'); -%>
-  <div class="container">
+  <div class="container py-4">
 
-    <div class="row my-4">
+    <div class="row">
       <div class="col-md-8">
         <h2 class="m-0">
           Hello <%= user.name %>
@@ -22,30 +22,34 @@
             </form>
             <%if (punchedIn) { %>
               <div class="text-muted small">Attendance marked.</div>
-              <% } else { %>
+            <% } else { %>
                 <div class="text-muted small">Can not be changed once marked.</div>
-                <% } %>
+            <% } %>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-body">
-        <ul class="m-0">
-          <% attendances.forEach(function(attendance) { %>
-            <li>
-              <%= attendance.punchedAt.toLocaleString() %>
-            </li>
-            <% }); %>
-        </ul>
+    <hr>
 
-        <% if(attendances.length == 0 ) { %>
-          <div class="p-5 text-center">Attendance Record Not Found</div>
-        <% } %>
+
+    <% if(attendances.length == 0) { %>
+      <div class="p-5 text-center">
+        <h2 class="text-muted">Attendance Record Not Found</h2>
+        <p>Mark your attendance for the day by clicking above button.</p>
       </div>
-    </div>
+    <% } else { %>  
+      
+      <div class="text-muted text-uppercase mb-1">Attendance Log</div>
+      <ul class="list-group">
+        <% attendances.forEach(function(attendance) { %>
+          <li class="list-group-item d-flex gap-3 py-3">
+            <%= attendance.punchedAt.toLocaleString() %>
+          </li>
+        <% }); %>
+      </ul>
 
+    <% } %>
+    
   </div>
-
-  <%- include('../includes/footer'); -%>
+<%- include('../includes/footer'); -%>

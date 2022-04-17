@@ -13,13 +13,11 @@
             </div>
         </div>
 
-
         <table class="table table-bordered bg-white">
             <thead>
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Joined</th>
-                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,16 +29,10 @@
                                     <b><%= employee.name %></b>
                                 </a>
                             </div>
-                            <div>
-                                <%= employee.email %>
-                            </div>
+                            <div><%= employee.email %></div>
                         </td>
 
                         <td><%= employee.joinedAt.toLocaleString() %></td>
-
-                        <td>
-                            Actions
-                        </td>
                     </tr>
                 <% }); %>
             </tbody>

@@ -1,30 +1,55 @@
 <%- include('../includes/header'); -%>
   
   <div class="container py-4">
-    <h1>Dashboard</h1>
-    <div class="card mb-3">
-      <div class="card-body">
-        Today's attendance count <%= attendees.length %>
+    <div class="row">
+      <div class="col-md-6">
+        <h1 class="m-0">Dashboard</h1>
+        <div>Hello <%= user.name %></div>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <div class="row">
+          <div class="col-6">
+            <div class="fs-4" id="dateDiv">---</div>
+            <div id="timeDiv">---</div>
+          </div>
+          <div class="col-6">
+            <div>Attendance count </div>
+            <div class="display-5"><%= attendees.length %></div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="mb-1 text-uppercase text-muted small">
-      Employees Present Today
-    </div>
+    <hr>
 
-    <div class="card">
-      <div class="card-body">
-        <ul>
-          <% attendees.forEach(function(attendee) { %>
-            <li>
-              <a href="/admin/employees/<%= attendee.User.id %>">
+    <% if(attendees.length == 0) { %>
+      <div class="p-5 text-center">
+        <h2 class="text-muted">Zero Attendance</h2>
+        <a href="/admin/employees/add" class="btn btn-primary">Add Employee</a>
+      </div>
+    <% } else { %>
+  
+      <div class="mb-1 text-uppercase text-muted small">
+        Today's Attendance
+      </div>
+  
+  
+      <ul class="list-group">
+        <% attendees.forEach(function(attendee) { %>
+          <li class="list-group-item position-relative d-flex gap-3 py-3">
+            <div style="height: 50px; width: 50px;" class="bg-secondary rounded"></div>
+            <div>
+              <a class="stretched-link" href="/admin/employees/<%= attendee.User.id %>">
                 <%= attendee.User.name %>
               </a>
-            </li>
-            <% }); %>
-        </ul>
-      </div>
-    </div>
+              <div><%= attendee.User.email %></div>
+            </div>
+          </li>
+        <% }); %>
+      </ul>
+
+    <% } %>
+      
   </div>
 
 <%- include('../includes/footer'); -%>

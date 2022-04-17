@@ -60,7 +60,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.locals.appName = 'Express AMS';
+app.locals.appName = appConfig.appName;
 
 // Configure routes
 app.use('/', authRouter);

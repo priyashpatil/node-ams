@@ -45,9 +45,9 @@ exports.employeesStore = async function (req, res, next) {
   await emailService.sendMail({
     from: `"${req.user.name} 👻" <${req.user.email}>`,
     to: employee.email,
-    subject: 'Welcome to Express AMS',
+    subject: `Welcome to ${appConfig.appName}`,
     html: `<h1>Hello ${employee.name}</h1>
-    <p>${req.user.name} added you to Express AMS. Please Login using following credentials.</p>
+    <p>${req.user.name} added you to ${appConfig.appName}. Please Login using following credentials.</p>
     <p>
       Username: <code>${employee.email}</code> <br/>
       Password: <code>${generatedPass}</code> <br/>
