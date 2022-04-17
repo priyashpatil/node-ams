@@ -1,7 +1,28 @@
 <%- include('../includes/header'); -%>
   
-  <div class="container">
-    Content
+  <div class="container py-4">
+    <h1>Dashboard</h1>
+    <div class="card mb-3">
+      <div class="card-body">
+        Today's attendance count <%= attendees.length %>
+      </div>
+    </div>
+
+    <div class="mb-1 text-uppercase text-muted small">
+      Employees Present Today
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <ul>
+          <% attendees.forEach(function(attendee) { %>
+            <li>
+              <%= attendee.User.name %>
+            </li>
+            <% }); %>
+        </ul>
+      </div>
+    </div>
   </div>
 
 <%- include('../includes/footer'); -%>
