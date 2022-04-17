@@ -1,21 +1,26 @@
-'use strict';
-
 var {
   randEmail,
-  randBoolean,
   randFullName,
   randBetweenDate,
 } = require('@ngneat/falso');
 
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up({context: queryInterface}) {
     var users = [
       {
         name: 'John Doe',
-        email: 'j@e.com',
+        email: 'john@email.com',
         password: '$2b$10$essKODPYaTn/Sc6qx2aBkucV1Fc59gOnFqXyqZZcvb5S8AF252rLC', // 123456
         isAdmin: true,
-        isActive: true,
+        joinedAt: new Date(),
+        updatedAt: new Date(),
+        createdAt: new Date(),
+      },
+      {
+        name: 'Jane Doe',
+        email: 'jane@email.com',
+        password: '$2b$10$essKODPYaTn/Sc6qx2aBkucV1Fc59gOnFqXyqZZcvb5S8AF252rLC', // 123456
+        isAdmin: false,
         joinedAt: new Date(),
         updatedAt: new Date(),
         createdAt: new Date(),
@@ -27,8 +32,7 @@ module.exports = {
         name: randFullName(),
         email: randEmail(),
         password: '$2b$10$essKODPYaTn/Sc6qx2aBkucV1Fc59gOnFqXyqZZcvb5S8AF252rLC', // 123456
-        isAdmin: randBoolean(),
-        isActive: randBoolean(),
+        isAdmin: false,
         joinedAt: randBetweenDate({
           from: new Date('10/07/2020'),
           to: new Date(),
@@ -46,7 +50,7 @@ module.exports = {
     await queryInterface.bulkInsert('users', users);
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('users', null, {});
+  async down({context: queryInterface}) {
+    await queryInterface.bulkDelete('users', {}, {});
   },
 };

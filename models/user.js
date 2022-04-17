@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
       password: DataTypes.STRING,
       joinedAt: DataTypes.DATEONLY,
       isAdmin: DataTypes.BOOLEAN,
-      isActive: DataTypes.BOOLEAN,
     },
     {
       sequelize,

@@ -11,12 +11,12 @@ var csrf = require('csurf');
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
 const db = require('./models');
 const appConfig = require('./config/app');
+const authenticate = require('./middlewares/authenticate');
 
 var authRouter = require('./routes/auth');
 var attendanceRouter = require('./routes/attendance');
 var adminRouter = require('./routes/admin');
 var employeeRouter = require('./routes/employee');
-const authenticate = require('./middlewares/authenticate');
 
 var app = express();
 // view engine setup

@@ -1,6 +1,7 @@
-'use strict';
+var { Sequelize } = require('sequelize');
+
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up({ context: queryInterface }) {
     await queryInterface.createTable('sessions', {
       sid: {
         allowNull: false,
@@ -24,7 +25,7 @@ module.exports = {
       },
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down({ context: queryInterface }) {
     await queryInterface.dropTable('sessions');
   },
 };

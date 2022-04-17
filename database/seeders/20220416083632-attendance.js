@@ -1,9 +1,7 @@
-'use strict';
-
 var { randBetweenDate } = require('@ngneat/falso');
 
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up({ context: queryInterface }) {
     var attendances = [];
 
     for (var i = 1; i < 21; i++) {
@@ -21,7 +19,7 @@ module.exports = {
     await queryInterface.bulkInsert('attendances', attendances);
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('attendances', null, {});
+  async down({ context: queryInterface }) {
+    await queryInterface.bulkDelete('attendances', {}, {});
   },
 };
