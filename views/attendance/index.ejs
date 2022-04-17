@@ -32,13 +32,17 @@
 
     <div class="card">
       <div class="card-body">
-        <ul>
+        <ul class="m-0">
           <% attendances.forEach(function(attendance) { %>
             <li>
               <%= attendance.punchedAt.toLocaleString() %>
             </li>
             <% }); %>
         </ul>
+
+        <% if(attendances.length == 0 ) { %>
+          <div class="p-5 text-center">Attendance Record Not Found</div>
+        <% } %>
       </div>
     </div>
 
