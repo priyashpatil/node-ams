@@ -49,13 +49,17 @@
         <div class="text-muted small text-uppercase mb-1">Attendance History</div>
         <div class="card">
             <div class="card-body">
-                <ul>
+                <ul class="m-0">
                     <% employee.Attendances.forEach(function(attendance) { %>
                       <li>
                         <%= attendance.punchedAt.toLocaleString() %>
                       </li>
-                      <% }); %>
-                  </ul>
+                    <% }); %>
+                </ul>
+
+                <% if(employee.Attendances.length == 0 ) { %>
+                    <div class="text-center p-5">Attendance Records Not Found.</div>
+                <% } %>
             </div>
         </div>
 
