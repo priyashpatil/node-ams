@@ -1,11 +1,11 @@
 <% if(user !=null) { %>
     <nav class="navbar navbar-expand-lg navbar-light border-bottom">
         <div class="container">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="<% if(user.isAdmin) { %> /admin <% } else { %> / <% } %>">
                 <%= appName %>
-                    <% if(user.isAdmin && (path.match('/admin*')) ) { %>
-                        <span class="badge bg-warning">Admin</span>
-                        <% } %>
+                <% if(user.isAdmin && (path.match('/admin*')) ) { %>
+                    <span class="badge bg-warning">Admin</span>
+                <% } %>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -13,7 +13,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <% if(user.isAdmin && (path.match('/admin*'))) { %>
+                <% if(user.isAdmin) { %>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" href="/admin">Dashboard</a>
@@ -21,36 +21,23 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/employees">Employees</a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="/admins">Admins</a>
-                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link  disabled" href="/admins">Admins</a>
+                        </li>
                     </ul>
-                    <% } %>
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <% if(user.isAdmin && (path=='/' )) { %>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/admin">Admin Dashboard</a>
-                                </li>
-                                <% } %>
-
-                                    <% if(user.isAdmin && (path.match('/admin*'))) { %>
-
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/">My Attendance</a>
-                                        </li>
-
-                                        <% } %>
-
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#"
-                                                    onclick="document.querySelector('#logoutForm').submit()">Logout</a>
-                                            </li>
-                        </ul>
-                        <form id="logoutForm" class="visually-hidden" action="/logout" method="post">
-                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        </form>
+                <% } %>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"
+                            onclick="document.querySelector('#logoutForm').submit()">
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+                <form id="logoutForm" class="visually-hidden" action="/logout" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                </form>
             </div>
         </div>
     </nav>
-
-    <% } %>
+<% } %>
