@@ -50,11 +50,11 @@ exports.employeesStore = async function (req, res, next) {
 exports.employeeShow = async function (req, res, next) {
   var emplyeeId = req.params.id;
   var employee = await models.User.findOne({
-    where: { id: emplyeeId },
+    where: { id: emplyeeId, isAdmin: false },
     include: models.Attendance,
   });
 
-  if (!employee || employee.isAdmin) {
+  if (!employee) {
     next(createError(404));
   } else {
     res.render('dashboard/employees_show', { employee });
@@ -64,11 +64,11 @@ exports.employeeShow = async function (req, res, next) {
 exports.employeeDelete = async function (req, res, next) {
   var emplyeeId = req.params.id;
   var employee = await models.User.findOne({
-    where: { id: emplyeeId },
+    where: { id: emplyeeId, isAdmin: false },
     include: models.Attendance,
   });
 
-  if (!employee || employee.isAdmin) {
+  if (!employee) {
     next(createError(404));
   } else {
     await employee.destroy();
