@@ -9,7 +9,12 @@ exports.attendanceIndex = async function (req, res, next) {
     order: [['punchedAt', 'DESC']],
   });
 
-  res.render('attendance/index', { attendances });
+  var today = new Date().toLocaleDateString();
+  var punchedIn = attendances.some(
+    (el) => new Date(el.punchedAt).toLocaleDateString() === today,
+  );
+
+  res.render('attendance/index', { attendances, punchedIn });
 };
 
 // Mark Attendance
@@ -32,7 +37,7 @@ exports.attendanceStore = async function (req, res, next) {
       punchedAt: new Date(),
     });
 
-    req.session.messages = ['Added'];
+    req.session.messages = ['Attendance Marked Successfully'];
     req.session.save(function (err) {
       res.redirect('/');
     });
