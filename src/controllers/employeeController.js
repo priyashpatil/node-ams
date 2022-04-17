@@ -81,3 +81,23 @@ exports.employeeDelete = async function (req, res, next) {
     }); 
   }
 };
+
+
+exports.employeeUpdate = async function (req, res, next) {
+  var data = req.body;
+  var emplyeeId = req.params.id;
+
+  var employee = await models.User.findOne({
+    where: { id: emplyeeId, isAdmin: false },
+    include: models.Attendance,
+  });
+
+  employee.name = data.name;
+  employee.joinedAt = data.joinedAt;
+  await employee.save();
+
+  req.session.messages = [`Employee ${employee.name} Updated Successfully.`];
+  req.session.save(function (err) {
+    res.redirect(`/admin/employees/${employee.id}`);
+  });
+};
