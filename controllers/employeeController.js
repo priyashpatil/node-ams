@@ -119,6 +119,30 @@ exports.employeeDelete = async function (req, res, next) {
   }
 };
 
+
+// Validate employee update data
+exports.validateEemployeeUpdateData = async function (req, res, next) {
+  
+  const schema = Joi.object({
+    name: Joi.string().required(),
+    joinedAt: Joi.date().required().required().less(new Date()),
+  });
+
+  try {
+    req.validatedData = await schema.validateAsync(req.body, {
+      abortEarly: false,
+      allowUnknown: true,
+    });
+    next();
+  } catch (err) {
+    var errorMessages = err.details.map((el) => el.message);
+    req.session.messages = errorMessages;
+    req.session.save(function (err) {
+      return res.redirect(`/admin/employees/${req.params.id}`);
+    });
+  }
+};
+
 exports.employeeUpdate = async function (req, res, next) {
   var data = req.body;
   var emplyeeId = req.params.id;

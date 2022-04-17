@@ -8,6 +8,7 @@ const {
   employeeDelete,
   employeeUpdate,
   validateEemployeeStoreData,
+  validateEemployeeUpdateData,
 } = require('../controllers/employeeController');
 const ensureIsAdmin = require('../middlewares/ensureIsAdmin');
 const ensureIsAuthenticated = require('../middlewares/ensureIsAuthenticated');
@@ -21,6 +22,7 @@ router.post(
   validateEemployeeStoreData,
   employeesStore,
 );
+
 router.get('/add', ensureIsAuthenticated, ensureIsAdmin, employeeCreate);
 
 router.post(
@@ -34,6 +36,7 @@ router.post(
   '/update/:id',
   ensureIsAuthenticated,
   ensureIsAdmin,
+  validateEemployeeUpdateData,
   employeeUpdate,
 );
 
