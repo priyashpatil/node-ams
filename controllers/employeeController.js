@@ -1,6 +1,8 @@
 var models = require('../models');
 var emailService = require('../services/emailService');
 var createError = require('http-errors');
+var authService = require('../services/authService');
+var appConfig = require('../config/app');
 
 exports.employeesIndex = async function (req, res, next) {
   var employees = await models.User.findAll({ where: { isAdmin: false } });
@@ -30,18 +32,28 @@ exports.employeesStore = async function (req, res, next) {
     });
   }
 
+  var generatedPass = await authService.passGen(12);
+  var hashedPass = await authService.hashPassword(generatedPass);
+
   var employee = await models.User.create({
     name: data.name,
     email: data.email,
-    password: 'password',
+    password: hashedPass,
     joinedAt: data.joinedAt,
   });
-  
+
   await emailService.sendMail({
-    from: '"Fred Foo 👻" <foo@example.com>',
+    from: `"${req.user.name} 👻" <${req.user.email}>`,
     to: employee.email,
     subject: 'Welcome to Express AMS',
-    html: '<b>Hello world</b>',
+    html: `<h1>Hello ${employee.name}</h1>
+    <p>${req.user.name} added you to Express AMS. Please Login using following credentials.</p>
+    <p>
+      Username: <code>${employee.email}</code> <br/>
+      Password: <code>${generatedPass}</code> <br/>
+      Login Link: <a href="${appConfig.appUrl}/login">Click here to login</a>
+    </p>
+    `,
   });
 
   req.session.messages = [`Employee ${employee.name} Added Successfully.`];
@@ -78,10 +90,9 @@ exports.employeeDelete = async function (req, res, next) {
     req.session.messages = [`Employee ${employee.name} Deleted Successfully.`];
     req.session.save(function (err) {
       res.redirect('/admin/employees');
-    }); 
+    });
   }
 };
-
 
 exports.employeeUpdate = async function (req, res, next) {
   var data = req.body;
