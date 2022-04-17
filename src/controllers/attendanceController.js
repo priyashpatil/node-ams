@@ -6,6 +6,7 @@ exports.attendanceIndex = async function (req, res, next) {
     where: {
       userId: req.user.id,
     },
+    order: [['punchedAt', 'DESC']],
   });
 
   res.render('attendance/index', { attendances });
