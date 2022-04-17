@@ -7,7 +7,7 @@ exports.dashboard = function (req, res, next) {
 };
 
 exports.employeesIndex = async function (req, res, next) {
-  var employees = await models.User.findAll();
+  var employees = await models.User.findAll({ where: { isAdmin: false } });
   res.render('dashboard/employees', { employees: employees });
 };
 

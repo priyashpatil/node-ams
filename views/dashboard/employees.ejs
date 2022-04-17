@@ -17,9 +17,8 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Joined At</th>
+                    <th scope="col">Joined</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -27,9 +26,6 @@
                 <% employees.forEach(function(employee) { %>
 
                     <tr>
-                        <th scope="row">
-                            <%= employee.id %>
-                        </th>
                         <td>
                             <div>
                                 <%= employee.name %>
