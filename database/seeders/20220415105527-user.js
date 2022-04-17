@@ -13,7 +13,7 @@ module.exports = {
       {
         name: 'John Doe',
         email: 'j@e.com',
-        password: '123456',
+        password: '$2b$10$essKODPYaTn/Sc6qx2aBkucV1Fc59gOnFqXyqZZcvb5S8AF252rLC', // 123456
         isAdmin: true,
         isActive: true,
         joinedAt: new Date(),
@@ -26,7 +26,7 @@ module.exports = {
       users.push({
         name: randFullName(),
         email: randEmail(),
-        password: '123456',
+        password: '$2b$10$essKODPYaTn/Sc6qx2aBkucV1Fc59gOnFqXyqZZcvb5S8AF252rLC', // 123456
         isAdmin: randBoolean(),
         isActive: randBoolean(),
         joinedAt: randBetweenDate({

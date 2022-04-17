@@ -1,4 +1,6 @@
 var models = require('../models');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 class AuthService {
   async validate(username, pass) {
@@ -8,7 +10,7 @@ class AuthService {
       },
     });
 
-    if (!user || user.password !== pass) {
+    if (!user || !(await this.compareHash(pass, user.password))) {
       return false;
     }
 
@@ -21,11 +23,15 @@ class AuthService {
   }
 
   async hashPassword(pass) {
-    //
+    try {
+      return bcrypt.hash(pass, saltRounds);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  async validatePassword(pass, hash) {
-    //
+  async compareHash(pass, hash) {
+    return await bcrypt.compare(pass, hash);
   }
 }
 
