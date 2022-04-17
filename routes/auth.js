@@ -1,5 +1,5 @@
 var express = require('express');
-var passport = require('passport');
+
 const ensureIsUnauthenticated = require('../middlewares/ensureIsUnauthenticated');
 const authenticate = require('../middlewares/authenticate');
 const { auth_login, auth_logout } = require('../controllers/authController');
@@ -11,12 +11,8 @@ router.get('/login', ensureIsUnauthenticated, auth_login);
 router.post(
   '/login',
   ensureIsUnauthenticated,
-  passport.authenticate('local', {
-    failureRedirect: '/login',
-    failureMessage: true,
-  }),
   function (req, res) {
-    if (req.isAuthenticated()) {
+    if (req.user) {
       res.redirect('/');
     } else {
       req.session.messages = ['Username or Passowrd is wrong'];

@@ -1,5 +1,5 @@
 module.exports = function authenticate(req, res, next) {
-  if (!req.isAuthenticated()) {
+  if (!req.user) {
     res.redirect('/login');
   } else {
     next();
