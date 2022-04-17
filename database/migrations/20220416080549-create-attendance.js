@@ -15,7 +15,7 @@ module.exports = {
       punchedAt: {
         allowNull: false,
         default: new Date(),
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
       },
     });
 

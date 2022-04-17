@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   Attendance.init(
     {
       userId: { type: DataTypes.INTEGER, allowNull: false },
-      punchedAt: { type: DataTypes.DATE, allowNull: false },
+      punchedAt: { type: DataTypes.DATEONLY, allowNull: false },
     },
     {
       sequelize,
