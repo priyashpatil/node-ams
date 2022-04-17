@@ -3,6 +3,7 @@ var emailService = require('../services/emailService');
 var createError = require('http-errors');
 var authService = require('../services/authService');
 var appConfig = require('../config/app');
+const Joi = require('joi');
 
 exports.employeesIndex = async function (req, res, next) {
   var employees = await models.User.findAll({ where: { isAdmin: false } });
@@ -13,8 +14,32 @@ exports.employeeCreate = async function (req, res, next) {
   res.render('dashboard/employees_add');
 };
 
+// Validate employee store data
+exports.validateEemployeeStoreData = async function (req, res, next) {
+  
+  const schema = Joi.object({
+    email: Joi.string().email().required(),
+    name: Joi.string().required(),
+    joinedAt: Joi.date().required().required().less(new Date()),
+  });
+
+  try {
+    req.validatedData = await schema.validateAsync(req.body, {
+      abortEarly: false,
+      allowUnknown: true,
+    });
+    next();
+  } catch (err) {
+    var errorMessages = err.details.map((el) => el.message);
+    req.session.messages = errorMessages;
+    req.session.save(function (err) {
+      return res.redirect('/admin/employees/add');
+    });
+  }
+};
+
 exports.employeesStore = async function (req, res, next) {
-  var data = req.body;
+  var data = req.validatedData;
 
   // check if employee exists in db
   var existingEmployee = await models.User.findOne({
