@@ -15,7 +15,7 @@ exports.attendanceIndex = async function (req, res, next) {
 exports.attendanceStore = async function (req, res, next) {
   // Fetch previous attendance
   var attendance = await models.Attendance.findOne({
-    where: { punchedAt: new Date() },
+    where: { punchedAt: new Date(), userId: req.user.id },
   });
 
   if (attendance) {
