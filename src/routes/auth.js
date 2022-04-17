@@ -14,8 +14,17 @@ router.post(
   passport.authenticate('local', {
     failureRedirect: '/login',
     failureMessage: true,
-    successReturnToOrRedirect: '/',
   }),
+  function (req, res) {
+    if (req.isAuthenticated()) {
+      res.redirect('/');
+    } else {
+      req.session.messages = ['Username or Passowrd is wrong'];
+      req.session.save(function (err) {
+        res.redirect('/login');
+      });
+    }
+  },
 );
 
 router.post('/logout', authenticate, auth_logout);
