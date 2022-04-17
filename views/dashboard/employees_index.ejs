@@ -27,7 +27,9 @@
                     <tr>
                         <td>
                             <div>
-                                <b><%= employee.name %></b>
+                                <a href="/admin/employees/<%= employee.id %>">
+                                    <b><%= employee.name %></b>
+                                </a>
                             </div>
                             <div>
                                 <%= employee.email %>

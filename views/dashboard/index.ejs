@@ -17,7 +17,9 @@
         <ul>
           <% attendees.forEach(function(attendee) { %>
             <li>
-              <%= attendee.User.name %>
+              <a href="/admin/empoyees/<%= attendee.User.id %>">
+                <%= attendee.User.name %>
+              </a>
             </li>
             <% }); %>
         </ul>

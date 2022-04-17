@@ -1,9 +1,10 @@
 var models = require('../models');
 var { sendMail } = require('../services/email');
+var createError = require('http-errors');
 
 exports.employeesIndex = async function (req, res, next) {
   var employees = await models.User.findAll({ where: { isAdmin: false } });
-  res.render('dashboard/employees', { employees: employees });
+  res.render('dashboard/employees_index', { employees: employees });
 };
 
 exports.employeeCreate = async function(req, res, next) {
@@ -12,6 +13,18 @@ exports.employeeCreate = async function(req, res, next) {
 
 exports.employeesStore = async function (req, res, next) {
   var data = req.body;
+
+  // check if employee exists in db
+  var existingEmployee = await models.User.findOne({where: {
+    email: data.email
+  }});
+
+  if (existingEmployee) {
+    req.session.messages = [`Employee with email ${data.email} already exists.`];
+    return req.session.save(function (err) {
+      res.redirect('/admin/employees/add');
+    });
+  }
 
   var employee = await models.User.create({
     name: data.name,
@@ -29,3 +42,14 @@ exports.employeesStore = async function (req, res, next) {
 
   res.redirect('/admin/employees');
 };
+
+exports.employeeShow = async function(req, res, next) {
+  var emplyeeId = req.params.id;
+  var employee = await models.User.findByPk(emplyeeId);
+
+  if (!employee || employee.isAdmin) {
+    next(createError(404));
+  } else {
+    res.render('dashboard/employees_show', {employee});
+  }
+}

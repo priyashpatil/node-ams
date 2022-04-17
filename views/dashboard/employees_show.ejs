@@ -1,0 +1,37 @@
+<%- include('../includes/header'); -%>
+
+    <div class="container py-4">
+
+        <a href="/admin/employees">Return to employees</a>
+        <h1><%= employee.name %></h1>
+
+        <div class="card">
+            <div class="card-body">
+                <form action="/admin/employees" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        
+                
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Employee Name</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="John Doe"
+                                required value="<%= employee.name %>">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" name="email" class="form-control" id="email"
+                                placeholder="jonh@email.com" required value="<%= employee.email %>">
+                        </div>
+        
+                        <div class="mb-3">
+                            <label for="joinedAt" class="form-label">Joined At</label>
+                            <input type="date" name="joinedAt" class="form-control" id="joinedAt" value="<%= employee.joinedAt %>">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+<%- include('../includes/footer'); -%>
