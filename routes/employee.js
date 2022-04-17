@@ -8,13 +8,13 @@ const {
   employeeDelete,
   employeeUpdate,
 } = require('../controllers/employeeController');
-const authenticate = require('../middlewares/authenticate');
+const ensureIsAuthenticated = require('../middlewares/ensureIsAuthenticated');
 
-router.get('/', authenticate, employeesIndex);
-router.post('/', authenticate, employeesStore);
-router.get('/add', authenticate, employeeCreate);
-router.post('/delete/:id', authenticate, employeeDelete);
-router.post('/update/:id', authenticate, employeeUpdate);
-router.get('/:id', authenticate, employeeShow);
+router.get('/', ensureIsAuthenticated, employeesIndex);
+router.post('/', ensureIsAuthenticated, employeesStore);
+router.get('/add', ensureIsAuthenticated, employeeCreate);
+router.post('/delete/:id', ensureIsAuthenticated, employeeDelete);
+router.post('/update/:id', ensureIsAuthenticated, employeeUpdate);
+router.get('/:id', ensureIsAuthenticated, employeeShow);
 
 module.exports = router;

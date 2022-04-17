@@ -4,10 +4,10 @@ const {
   attendanceStore,
 } = require('../controllers/attendanceController');
 var router = express.Router();
-const authenticate = require('../middlewares/authenticate');
+const ensureIsAuthenticated = require('../middlewares/ensureIsAuthenticated');
 
 /* GET home page. */
-router.get('/', authenticate, attendanceIndex);
-router.post('/', authenticate, attendanceStore);
+router.get('/', ensureIsAuthenticated, attendanceIndex);
+router.post('/', ensureIsAuthenticated, attendanceStore);
 
 module.exports = router;

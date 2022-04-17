@@ -1,7 +1,9 @@
-module.exports = function authenticate(req, res, next) {
-  if (!req.user) {
-    res.redirect('/login');
+module.exports = function (req, res, next) {
+  if ('auth' in req.session ) {
+    req.user = JSON.parse(req.session.auth);
   } else {
-    next();
+    req.session.auth = null;
+    req.user = null;
   }
+  next();
 };

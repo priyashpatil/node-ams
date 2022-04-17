@@ -16,6 +16,7 @@ var authRouter = require('./routes/auth');
 var attendanceRouter = require('./routes/attendance');
 var adminRouter = require('./routes/admin');
 var employeeRouter = require('./routes/employee');
+const authenticate = require('./middlewares/authenticate');
 
 var app = express();
 // view engine setup
@@ -41,6 +42,7 @@ app.use(
   }),
 );
 app.use(csrf());
+app.use(authenticate);
 app.use(serveStatic(path.join(__dirname, 'public')));
 
 app.use(function (req, res, next) {

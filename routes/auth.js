@@ -1,28 +1,17 @@
 var express = require('express');
 
 const ensureIsUnauthenticated = require('../middlewares/ensureIsUnauthenticated');
-const authenticate = require('../middlewares/authenticate');
-const { auth_login, auth_logout } = require('../controllers/authController');
+const {
+  auth_login,
+  auth_logout,
+  handle_login,
+} = require('../controllers/authController');
+const ensureIsAuthenticated = require('../middlewares/ensureIsAuthenticated');
 
 var router = express.Router();
 
 router.get('/login', ensureIsUnauthenticated, auth_login);
-
-router.post(
-  '/login',
-  ensureIsUnauthenticated,
-  function (req, res) {
-    if (req.user) {
-      res.redirect('/');
-    } else {
-      req.session.messages = ['Username or Passowrd is wrong'];
-      req.session.save(function (err) {
-        res.redirect('/login');
-      });
-    }
-  },
-);
-
-router.post('/logout', authenticate, auth_logout);
+router.post('/login', ensureIsUnauthenticated, handle_login);
+router.post('/logout', ensureIsAuthenticated, auth_logout);
 
 module.exports = router;
