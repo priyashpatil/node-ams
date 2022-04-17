@@ -44,7 +44,10 @@ exports.employeesStore = async function (req, res, next) {
     '<b>Hello world</b>',
   );
 
-  res.redirect('/admin/employees');
+  req.session.messages = [`Employee ${employee.name} Added Successfully.`];
+  req.session.save(function (err) {
+    res.redirect(`/admin/employees/${employee.id}`);
+  });
 };
 
 exports.employeeShow = async function (req, res, next) {
