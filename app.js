@@ -37,7 +37,7 @@ app.use(
       tableName: 'sessions',
     }),
     cookie: {
-      secure: false,
+      secure: false, // true on production
     },
   }),
 );
