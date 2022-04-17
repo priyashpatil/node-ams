@@ -6,6 +6,10 @@ exports.employeesIndex = async function (req, res, next) {
   res.render('dashboard/employees', { employees: employees });
 };
 
+exports.employeeCreate = async function(req, res, next) {
+  res.render('dashboard/employees_add');
+}
+
 exports.employeesStore = async function (req, res, next) {
   var data = req.body;
 
