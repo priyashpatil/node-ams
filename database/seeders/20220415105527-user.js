@@ -13,7 +13,7 @@ module.exports = {
       {
         name: 'John Doe',
         email: 'j@e.com',
-        password: 'password',
+        password: '123456',
         isAdmin: true,
         isActive: true,
         joinedAt: new Date(),
@@ -26,7 +26,7 @@ module.exports = {
       users.push({
         name: randFullName(),
         email: randEmail(),
-        password: 'password',
+        password: '123456',
         isAdmin: randBoolean(),
         isActive: randBoolean(),
         joinedAt: randBetweenDate({

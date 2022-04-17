@@ -15,6 +15,7 @@ var LocalStrategy = require('passport-local');
 var authRouter = require('./routes/auth');
 var attendanceRouter = require('./routes/attendance');
 var adminRouter = require('./routes/admin');
+var employeeRouter = require('./routes/employee');
 
 var app = express();
 // view engine setup
@@ -112,6 +113,7 @@ passport.deserializeUser(function (user, done) {
 app.use('/', authRouter);
 app.use('/', attendanceRouter);
 app.use('/admin', adminRouter);
+app.use('/admin/employees', employeeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
