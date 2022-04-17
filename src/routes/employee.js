@@ -5,12 +5,14 @@ const {
   employeesStore,
   employeeCreate,
   employeeShow,
+  employeeDelete,
 } = require('../controllers/employeeController');
 const authenticate = require('../middlewares/authenticate');
 
 router.get('/', authenticate, employeesIndex);
-router.get('/add', authenticate, employeeCreate);
 router.post('/', authenticate, employeesStore);
+router.get('/add', authenticate, employeeCreate);
+router.post('/delete/:id', authenticate, employeeDelete);
 router.get('/:id', authenticate, employeeShow);
 
 module.exports = router;

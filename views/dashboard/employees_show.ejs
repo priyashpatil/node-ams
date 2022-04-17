@@ -3,7 +3,22 @@
     <div class="container py-4">
 
         <a href="/admin/employees">Return to employees</a>
-        <h1><%= employee.name %></h1>
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-6">
+                <h1 class="m-0"><%= employee.name %></h1>
+            </div>
+            <div class="col-md-6 text-end">
+                <form action="/admin/employees/delete/<%= employee.id %>" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">  
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                
+                <div class="text-muted">
+                    <small>Permanently deletes all attendance records.</small>
+                </div>
+                
+            </div>
+        </div>
 
         <div class="card mb-3">
             <div class="card-body">
@@ -22,11 +37,11 @@
     
                     <div class="mb-3">
                         <label for="joinedAt" class="form-label">Joined At</label>
-                        <input type="date" name="joinedAt" class="form-control" id="joinedAt" value="<%= employee.joinedAt %>">
+                        <input type="date" name="joinedAt" class="form-control" id="joinedAt" 
+                        value="<%= employee.joinedAt %>">
                     </div>
 
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </div>
         </div>

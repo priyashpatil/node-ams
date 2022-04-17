@@ -60,3 +60,21 @@ exports.employeeShow = async function (req, res, next) {
     res.render('dashboard/employees_show', { employee });
   }
 };
+
+exports.employeeDelete = async function (req, res, next) {
+  var emplyeeId = req.params.id;
+  var employee = await models.User.findOne({
+    where: { id: emplyeeId },
+    include: models.Attendance,
+  });
+
+  if (!employee || employee.isAdmin) {
+    next(createError(404));
+  } else {
+    await employee.destroy();
+    req.session.messages = [`Employee ${employee.name} Deleted Successfully.`];
+    req.session.save(function (err) {
+      res.redirect('/admin/employees');
+    }); 
+  }
+};
