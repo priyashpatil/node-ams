@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -11,6 +13,7 @@ var SequelizeStore = require('connect-session-sequelize')(session.Store);
 const db = require('./models');
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
+const appConfig = require('./config/app');
 
 var authRouter = require('./routes/auth');
 var attendanceRouter = require('./routes/attendance');
@@ -19,7 +22,7 @@ var employeeRouter = require('./routes/employee');
 
 var app = express();
 // view engine setup
-app.set('views', path.join(__dirname, '..', 'views'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
@@ -28,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Configure session
 var sessionConfig = {
-  secret: 'keyboard_cat',
+  secret: appConfig.secret,
   resave: true,
   saveUninitialized: true,
   store: new SequelizeStore({
@@ -46,7 +49,7 @@ if (app.get('env') === 'production') {
 app.use(session(sessionConfig));
 app.use(csrf());
 app.use(passport.authenticate('session'));
-app.use(serveStatic(path.join(__dirname, '..', 'public')));
+app.use(serveStatic(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {
   res.locals.csrfToken = req.csrfToken();
   res.locals.path = req.path;

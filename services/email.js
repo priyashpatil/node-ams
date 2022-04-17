@@ -1,18 +1,19 @@
 ('use strict');
 const nodemailer = require('nodemailer');
+const emailConfig = require('../config/email');
 
 exports.sendMail = async function smtpEmail(
-  from = '"Fred Foo 👻" <foo@example.com>',
+  from,
   to,
   subject,
   html,
 ) {
   const transport = nodemailer.createTransport({
-    host: 'smtp.mailtrap.io',
-    port: 2525,
+    host: emailConfig.host,
+    port: emailConfig.port,
     auth: {
-      user: '84610207f083f1',
-      pass: '6d1831d9b19e0d',
+      user: emailConfig.auth.user,
+      pass: emailConfig.auth.pass,
     },
   });
 
