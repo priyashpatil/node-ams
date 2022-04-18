@@ -80,8 +80,8 @@ password: 123456
 ### Additional Requirements:
 
 - [x] README file for project setup
-- [ ] SQL file with data for testing
 - [x] Migrations & Seeders
+- [ ] SQL file with data for testing
 
 ### Technology Stack:
 
@@ -90,5 +90,3 @@ password: 123456
 - HTML (You can use any HTML website template for the UI part) - UI is not important. Keep it simple.
 - Any CSS Framework (Bootstrap / Tailwind / Material UI ...)
 - Vanilla JS / JQuery / Alpine
-
-* The project must be committed to a git repository and then you can share the project URL.
