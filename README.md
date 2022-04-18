@@ -6,7 +6,7 @@ A dashboard to manage all the employees along with their attendance.
 
 ### Using docker (Recommended)
 
-You can use included `docker-compose.yml` to start database and email services. When using `docker-composer.yml` the `.env` with defaults from `.env.example` should work out of the box.
+You can use included `docker-compose.yml` to start database and email services. When using docker the `.env` with defaults from `.env.example` should work out of the box.
 
 ```
 docker compose up -d
