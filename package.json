@@ -11,8 +11,8 @@
     "migrate:fresh": "npm run migrate:reset && npm run migrate",
     "db:seed": "node ./migrate seed",
     "db:seed:fresh": "node ./migrate seed-fresh",
-    "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test": "NODE_ENV=test jest",
+    "test:watch": "NODE_ENV=test jest --watchAll"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
