@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config();
 const { Umzug, SequelizeStorage } = require('umzug');
-const db = require('./models');
+const db = require('./src/models');
 
 const sequelize = db.sequelize;
 var args = process.argv.slice(2);
@@ -33,11 +33,11 @@ const umzugSeeder = new Umzug({
       await umzugSeeder.up();
       break;
     case 'seed-fresh':
-        await umzug.down({ to: 0 });
-        await umzug.up();
-        await umzugSeeder.down();
-        await umzugSeeder.up();
-        break;
+      await umzug.down({ to: 0 });
+      await umzug.up();
+      await umzugSeeder.down();
+      await umzugSeeder.up();
+      break;
     default:
       await umzug.up();
       break;

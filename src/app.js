@@ -20,7 +20,7 @@ var employeeRouter = require('./routes/employee');
 
 var app = express();
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '..', 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
@@ -43,7 +43,7 @@ app.use(
 );
 app.use(csrf());
 app.use(authenticate);
-app.use(serveStatic(path.join(__dirname, 'public')));
+app.use(serveStatic(path.join(__dirname, '..', 'public')));
 
 app.use(function (req, res, next) {
   res.locals.csrfToken = req.csrfToken();

@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../app');
+const app = require('../src/app');
 
 describe('Admin Tests', () => {
   test('Route /admin exists', async () => {
