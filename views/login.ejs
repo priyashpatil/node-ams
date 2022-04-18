@@ -1,24 +1,38 @@
 <%- include('includes/header'); -%>
-    <div class="container py-5" style="max-width: 320px;">
-        <h1>Sign in</h1>
-        <div class="card">
-            <div class="card-body">
-                <form action="/login" method="post">
-                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Email</label>
-                        <input id="username" class="form-control" name="username" type="email" autocomplete="username"
-                            autofocus required placeholder="Enter email">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="current-password" class="form-label">Password</label>
-                        <input id="current-password" class="form-control" name="password" type="password"
-                            autocomplete="current-password" placeholder="Enter password">
-                    </div>
-                    <button class="btn btn-primary" type="submit">Sign in</button>
-                </form>
-            </div>
+<div class="container py-5" style="max-width: 320px">
+  <h1>Sign in</h1>
+  <div class="card">
+    <div class="card-body">
+      <form action="/login" method="post">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <div class="mb-3">
+          <label for="username" class="form-label">Email</label>
+          <input
+            id="username"
+            class="form-control"
+            name="username"
+            type="email"
+            autocomplete="username"
+            autofocus
+            required
+            placeholder="Enter email"
+          />
         </div>
+
+        <div class="mb-3">
+          <label for="current-password" class="form-label">Password</label>
+          <input
+            id="current-password"
+            class="form-control"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Enter password"
+          />
+        </div>
+        <button class="btn btn-primary" type="submit">Sign in</button>
+      </form>
     </div>
-    <%- include('includes/footer'); -%>
+  </div>
+</div>
+<%- include('includes/footer'); -%>
