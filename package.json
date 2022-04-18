@@ -10,7 +10,9 @@
     "migrate:reset": "node ./migrate reset",
     "migrate:fresh": "npm run migrate:reset && npm run migrate",
     "db:seed": "node ./migrate seed",
-    "db:seed:fresh": "node ./migrate seed-fresh"
+    "db:seed:fresh": "node ./migrate seed-fresh",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -33,6 +35,8 @@
   },
   "devDependencies": {
     "@ngneat/falso": "^4.0.0",
-    "nodemon": "^2.0.15"
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2"
   }
 }
